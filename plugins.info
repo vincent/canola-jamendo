@@ -1,0 +1,22 @@
+[Jamendo Model]
+modname = canola-jamendo.model
+enabled = True
+rank = 256
+filter_map = Icon/Folder/Task/Audio/Jamendo - Icon
+             Model/Folder/Task/Audio/Jamendo - MainModelFolder
+             Model/Settings/Folder/InternetMedia/Jamendo - OptionsModel
+
+[Jamendo UI]
+modname = canola-jamendo.ui
+enabled = True
+rank = 256
+filter_map = Controller/Folder/Task/Audio/Jamendo - ListController
+             Controller/Folder/Task/Audio/Jamendo/Service - AudioPlayerController
+             Controller/Folder/Task/Audio/Jamendo/History - HistoryListController
+
+[Lastfm Options]
+modname = canola-jamendo.options
+enabled = True
+rank = 256
+filter_map = Controller/Settings/Folder/InternetMedia/Jamendo - OptionsController
+             Controller/Settings/Folder/InternetMedia/Jamendo/UserPass - UserPassController

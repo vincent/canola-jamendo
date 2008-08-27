@@ -1,0 +1,150 @@
+/*
+ * Canola2 Last.fm Plugin
+ * Copyright (C) 2008 Instituto Nokia de Tecnologia
+ * Author: Adriano Rezende <adriano.rezende@openbossa.org>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Additional permission under GNU GPL version 3 section 7
+ *
+ * If you modify this Program, or any covered work, by linking or combining it
+ * with Canola2 and its core components (or a modified version of any of those),
+ * containing parts covered by the terms of Instituto Nokia de Tecnologia End
+ * User Software Agreement, the licensors of this Program grant you additional
+ * permission to convey the resulting work.
+ */
+
+group {
+   name: "widget/media_buttons";
+
+   images {
+      image: "images/bt_love_empty.png" COMP;
+      image: "images/bt_love_full.png" COMP;
+      image: "images/bt_ban_full.png" COMP;
+      image: "images/bt_ban_empty.png" COMP;
+   }
+
+   parts {
+      part {
+         name: "master_clipper";
+         type: RECT;
+         mouse_events: 0;
+         description {
+            state: "default" 0.0;
+            rel1 {
+               relative: 0.0 0.0;
+               offset: 0 0;
+            }
+            rel2 {
+               relative: 1.0 1.0;
+               offset: -1 -1;
+            }
+         }
+      }
+
+      part {
+         name: "bt_love";
+         type: IMAGE;
+         clip_to: "master_clipper";
+         description {
+            state: "default" 0.0;
+            min: 51 45;
+            max: 51 45;
+            rel1 {
+               to: "master_clipper";
+               relative: 0.0 0.0;
+               offset: 0 0;
+            }
+            rel2 {
+               to: "master_clipper";
+               relative: 0.0 1.0;
+               offset: 51 -1;
+            }
+            image.normal: "images/bt_love_empty.png";
+         }
+         description {
+            state: "active" 0.0;
+            inherit: "default" 0.0;
+            image.normal: "images/bt_love_full.png";
+         }
+      }
+
+      program {
+         name: "love_full";
+         signal: "love,full";
+         action: STATE_SET "active" 0.0;
+         target: "bt_love";
+      }
+      program {
+         name: "love_empty";
+         signal: "love,empty";
+         action: STATE_SET "default" 0.0;
+         target: "bt_love";
+      }
+      program {
+         name: "love_clicked";
+         signal: "mouse,down,1";
+         source: "bt_love";
+         action: SIGNAL_EMIT "love,clicked" "";
+      }
+
+      part {
+         name: "bt_ban";
+         type: IMAGE;
+         clip_to: "master_clipper";
+         description {
+            state: "default" 0.0;
+            min: 45 46;
+            max: 45 46;
+            rel1 {
+               to_x: "bt_love";
+               to_y: "master_clipper";
+               relative: 1.0 0.0;
+               offset: 40 0;
+            }
+            rel2 {
+               to_x: "bt_love";
+               to_y: "master_clipper";
+               relative: 1.0 1.0;
+               offset: 90 -1;
+            }
+            image.normal: "images/bt_ban_empty.png";
+         }
+         description {
+            state: "active" 0.0;
+            inherit: "default" 0.0;
+            image.normal: "images/bt_ban_full.png";
+         }
+      }
+
+      program {
+         name: "ban_full";
+         signal: "ban,full";
+         action: STATE_SET "active" 0.0;
+         target: "bt_ban";
+      }
+      program {
+         name: "ban_empty";
+         signal: "ban,empty";
+         action: STATE_SET "default" 0.0;
+         target: "bt_ban";
+      }
+      program {
+         name: "ban_clicked";
+         signal: "mouse,down,1";
+         source: "bt_ban";
+         action: SIGNAL_EMIT "ban,clicked" "";
+      }
+   }
+}
